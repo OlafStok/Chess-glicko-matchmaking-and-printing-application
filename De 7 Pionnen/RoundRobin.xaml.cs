@@ -70,33 +70,6 @@ namespace De_7_Pionnen
             new PrintDG().printDG("Matches: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items);
         }
 
-        private void Match_Toevoegen(object sender, RoutedEventArgs e)
-        {
-            Versus geselecteerdeVersus = new Versus();
-            int id = 0;
-            foreach (Versus versus in versusLijst)
-            {
-                if (id <= versus.Id)
-                    id = versus.Id + 1;
-            }
-            geselecteerdeVersus.Id = id;
-            versusLijst.Add(geselecteerdeVersus);
-            new VersusAanpassen(geselecteerdeVersus, true).ShowDialog();
-
-            VulDataGrid();
-        }
-
-        private void Match_Verwijderen(object sender, RoutedEventArgs e)
-        {
-            if (HuidigeMatches.SelectedItem == null)
-                return;
-            if (MessageBox.Show("Weet u zeker dat u de match " + HuidigeMatches.SelectedItem.ToString() + " wilt verwijderen?", "Match verwijderen", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                versusLijst.Remove((Versus)HuidigeMatches.SelectedItem);
-                VulDataGrid();
-            }
-        }
-
         private void DubbelKlik(object sender, MouseButtonEventArgs e)
         {
             DataGrid grid = (DataGrid)sender;
@@ -110,19 +83,6 @@ namespace De_7_Pionnen
             new VersusAanpassen(geselecteerdeVersus, ref versusLijst).ShowDialog();
 
             VulDataGrid();
-        }
-
-        private void Delete_Click(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Delete)
-            {
-                Match_Verwijderen(sender, e);
-            }
-        }
-
-        private void Matchmaking_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void SingleRoundRobin()
@@ -209,6 +169,22 @@ namespace De_7_Pionnen
                 witLijst.Add(bewegendeZwart);
                 zwartLijst.Insert(0, bewegendeWit);
             }
+        }
+
+        private void PrintTabel_Click(object sender, RoutedEventArgs e)
+        {
+            var tabel = new GroteLadder();
+            tabel.Show();
+            tabel.WindowState = WindowState.Minimized;
+            PrintDialog print = new PrintDialog();
+            print.ShowDialog();
+            print.PrintVisual(tabel.Grid, "Round Robin Tabel");
+            tabel.Close();
+        }
+
+        private void Afsluiten_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

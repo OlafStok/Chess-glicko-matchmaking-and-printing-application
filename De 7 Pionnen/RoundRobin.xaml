@@ -10,7 +10,7 @@
         <local:DividerRowConverter x:Key="DividerRowConverter"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="HuidigeMatches" Margin="10,10,10,93" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PreviewKeyDown="Delete_Click" BorderBrush="#FFBEDEFD" Background="#FFBCE4F7">
+        <DataGrid x:Name="HuidigeMatches" Margin="10,10,10,93" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="#FFBEDEFD" Background="#FFBCE4F7">
             <DataGrid.CellStyle>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Setters>
@@ -21,10 +21,11 @@
             </DataGrid.CellStyle>
         </DataGrid>
 
-        <Button x:Name="Afsluiten" Content="Round Robin afsluiten" HorizontalAlignment="Left" Margin="576,0,0,10" VerticalAlignment="Bottom" Width="206" Height="78" FontSize="18" FontWeight="Bold" Click="Matchmaking_Click"/>
-        <Button x:Name="Print" Content="Printen" HorizontalAlignment="Left" Margin="393,0,0,10" VerticalAlignment="Bottom" Width="178" Height="78" FontSize="18" FontWeight="Bold" Click="Print_Click"/>
-        <Button x:Name="MatchToevoegen" Content="Match toevoegen" HorizontalAlignment="Left" Margin="10,0,0,47" VerticalAlignment="Bottom" Width="378" Height="41" FontSize="18" FontWeight="Bold" Click="Match_Toevoegen" IsEnabled="False"/>
-        <Button x:Name="MatchVerwijderen" Content="Match verwijderen" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="378" Height="32" FontSize="18" FontWeight="Bold" Click="Match_Verwijderen" IsEnabled="False"/>
+        <Button x:Name="Afsluiten" Content="Round Robin afsluiten" HorizontalAlignment="Left" Margin="576,0,0,10" VerticalAlignment="Bottom" Width="206" Height="78" FontSize="18" FontWeight="Bold" Click="Afsluiten_Click"/>
+        <Button x:Name="Print_list" Content="Print Lijst" HorizontalAlignment="Left" Margin="393,0,0,47" VerticalAlignment="Bottom" Width="178" Height="41" FontSize="18" FontWeight="Bold" Click="Print_Click"/>
+        <Button x:Name="MatchToevoegen" Content="Match toevoegen" HorizontalAlignment="Left" Margin="10,0,0,47" VerticalAlignment="Bottom" Width="378" Height="41" FontSize="18" FontWeight="Bold" IsEnabled="False"/>
+        <Button x:Name="MatchVerwijderen" Content="Match verwijderen" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="378" Height="32" FontSize="18" FontWeight="Bold" IsEnabled="False"/>
+        <Button x:Name="Print_Tabel" Content="Print Tabel" HorizontalAlignment="Left" Margin="393,0,0,10" VerticalAlignment="Bottom" Width="178" Height="32" FontSize="18" FontWeight="Bold" Click="PrintTabel_Click"/>
 
     </Grid>
 </Window>

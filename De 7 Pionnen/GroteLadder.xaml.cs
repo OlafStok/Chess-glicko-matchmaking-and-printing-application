@@ -27,7 +27,7 @@ namespace De_7_Pionnen
             InitializeComponent();
             foreach (Persoon p in DataSources.Instance.personen)
             {
-                if (p.Aanwezig)
+                if (p.Aanwezig && p.Id > -1)
                     aanwezigePersonen.Add(p);
             }
 

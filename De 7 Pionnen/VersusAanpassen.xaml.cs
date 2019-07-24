@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,8 +39,16 @@ namespace De_7_Pionnen
             Uitslag.DisplayMemberPath = "Naam";
             Uitslag.SelectedValuePath = "Waarde";
 
-            Wit.ItemsSource = DataSources.Instance.personen;
-            Zwart.ItemsSource = DataSources.Instance.personen;
+            List<Persoon> persoonItemSource = new List<Persoon>();
+            foreach (Persoon p in DataSources.Instance.personen)
+            {
+                if (p.Id > -1)
+                    persoonItemSource.Add(p);
+                Debug.WriteLine(p.Id.ToString() + " - " + p.Naam);
+            }
+
+            Wit.ItemsSource = persoonItemSource;
+            Zwart.ItemsSource = persoonItemSource;
             Uitslag.ItemsSource = uitslagen;
 
             Id.Text = versus.Id.ToString();
@@ -82,8 +91,16 @@ namespace De_7_Pionnen
             Uitslag.DisplayMemberPath = "Naam";
             Uitslag.SelectedValuePath = "Waarde";
 
-            Wit.ItemsSource = DataSources.Instance.personen;
-            Zwart.ItemsSource = DataSources.Instance.personen;
+            List<Persoon> persoonItemSource = new List<Persoon>();
+            foreach (Persoon p in DataSources.Instance.personen)
+            {
+                if (p.Id > -1)
+                    persoonItemSource.Add(p);
+                Debug.WriteLine(p.Id.ToString() + " - " + p.Naam);
+            }
+
+            Wit.ItemsSource = persoonItemSource;
+            Zwart.ItemsSource = persoonItemSource;
             Uitslag.ItemsSource = uitslagen;
 
             Id.Text = versus.Id.ToString();
