@@ -39,8 +39,6 @@ namespace De_7_Pionnen
 
             Style style = new Style();
             style.Setters.Add(new Setter(GridViewColumnHeader.FontSizeProperty, 20.0));
-            Style dividerConverter = new Style();
-            dividerConverter.Setters.Add(new Setter(BackgroundProperty, new DividerRowConverter().Convert(huidigeNaam, null, null, null)));
 
             HuidigeMatches.Columns.Add(new DataGridTextColumn() { Header = "Id", Binding = new Binding("Id"), Visibility = Visibility.Hidden });
             HuidigeMatches.Columns.Add(new DataGridTextColumn() { Header = "Wit", Binding = new Binding("Wit.Naam"), IsReadOnly = true, FontSize = 20, HeaderStyle = style});
@@ -107,6 +105,8 @@ namespace De_7_Pionnen
                 return;
             Versus geselecteerdeVersus = ((Versus)HuidigeMatches.SelectedCells[0].Item);
 
+            if (geselecteerdeVersus.Wit.Id < 0)
+                return;
             new VersusAanpassen(geselecteerdeVersus, ref versusLijst).ShowDialog();
 
             VulDataGrid();

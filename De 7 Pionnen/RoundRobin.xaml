@@ -6,9 +6,19 @@
         xmlns:local="clr-namespace:De_7_Pionnen"
         mc:Ignorable="d"
         Title="RoundRobin" Height="450" Width="800">
+    <Window.Resources>
+        <local:DividerRowConverter x:Key="DividerRowConverter"/>
+    </Window.Resources>
     <Grid>
-        <DataGrid x:Name="HuidigeMatches" Margin="10,10,10,93" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PreviewKeyDown="Delete_Click">
-            
+        <DataGrid x:Name="HuidigeMatches" Margin="10,10,10,93" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PreviewKeyDown="Delete_Click" BorderBrush="#FFBEDEFD" Background="#FFBCE4F7">
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Style.Setters>
+                        <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=Content.Text, Converter={StaticResource DividerRowConverter}}" />
+                        <Setter Property="TextBlock.Foreground" Value="Black"/>
+                    </Style.Setters>
+                </Style>
+            </DataGrid.CellStyle>
         </DataGrid>
 
         <Button x:Name="Afsluiten" Content="Round Robin afsluiten" HorizontalAlignment="Left" Margin="576,0,0,10" VerticalAlignment="Bottom" Width="206" Height="78" FontSize="18" FontWeight="Bold" Click="Matchmaking_Click"/>

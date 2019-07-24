@@ -164,7 +164,7 @@ namespace De_7_Pionnen
                 if (Zwart.SelectedValue != null)
                     huidigeVersus.Zwart = DataSources.Instance.personen.Find(p => p.Id == (int)Zwart.SelectedValue);
                 else
-                    huidigeVersus.Zwart = null;a
+                    huidigeVersus.Zwart = null;
 
                 if (Uitslag.SelectedValue != null)
                     huidigeVersus.Uitslag = Uitslag.SelectedValue.ToString();
