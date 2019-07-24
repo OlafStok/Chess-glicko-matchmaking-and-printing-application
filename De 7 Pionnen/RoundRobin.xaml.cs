@@ -190,25 +190,25 @@ namespace De_7_Pionnen
 
         private void Afsluiten_Click(object sender, RoutedEventArgs e)
         {
-            bool alleVersusIngevuld = true;
-            List<Versus> versusLijstZonderDividers = new List<Versus>();
-            foreach (Versus versus in versusLijst)
-            {
-                if (!versus.Wit.Naam.StartsWith("Ronde "))
-                {
-                    versusLijstZonderDividers.Add(versus);
-                    if (string.IsNullOrEmpty(versus.Uitslag))
-                        alleVersusIngevuld = false;
-                }
-            }
-            if (alleVersusIngevuld)
-            {
+            //bool alleVersusIngevuld = true;
+            //List<Versus> versusLijstZonderDividers = new List<Versus>();
+            //foreach (Versus versus in versusLijst)
+            //{
+            //    if (!versus.Wit.Naam.StartsWith("Ronde "))
+            //    {
+            //        versusLijstZonderDividers.Add(versus);
+            //        if (string.IsNullOrEmpty(versus.Uitslag))
+            //            alleVersusIngevuld = false;
+            //    }
+            //}
+            //if (alleVersusIngevuld)
+            //{
                 //doe zelfde wiskunde als bij matchmaking, maar dan met versuslijstzonderdivider
-            } else
-            {
+            //} else
+            //{
                 //vraag of de resultaten moeten worden doorgevoerd, of of het programma tijdelijk gesloten wordt
                 
-            }
+            //}
         }
     }
 }

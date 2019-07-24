@@ -42,7 +42,7 @@ namespace De_7_Pionnen
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Gewonnen", Binding = new Binding("Gewonnen"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Verloren", Binding = new Binding("Verloren"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Gelijk", Binding = new Binding("Gelijkspel"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
-            PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Score", Binding = new Binding("Score") { StringFormat = "##########0.###" }, IsReadOnly = true, FontSize = 20, HeaderStyle = style });
+            PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Score", Binding = new Binding("Score") { StringFormat = "##########0.#" }, IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridCheckBoxColumn() { Header = "Aanwezig", Binding = new Binding("Aanwezig"), IsReadOnly = true, HeaderStyle = style});
 
             PersonenTabel.MouseDoubleClick += DubbelKlik;

@@ -138,7 +138,7 @@ namespace De_7_Pionnen
             {
                 items.Add(new List<string> { versus.Wit == null ? "" : versus.Wit.Naam, versus.Zwart == null ? "" : versus.Zwart.Naam, versus.Uitslag == null ? "-" : versus.Uitslag });
             }
-            new PrintDG().printDG("Matches: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items);
+            new PrintDG().printDG("Ronde " + (huidigeMatchLijst.nummer + 1) + "\nDatum: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items);
         }
 
         private void Match_Toevoegen(object sender, RoutedEventArgs e)

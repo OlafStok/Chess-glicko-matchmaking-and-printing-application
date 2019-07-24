@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:De_7_Pionnen"
         mc:Ignorable="d"
         Title="GroteLadder" Height="450" Width="800">
-    <Grid x:Name="Grid" ShowGridLines="True">
+    <Grid x:Name="Grid" ShowGridLines="False">
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>

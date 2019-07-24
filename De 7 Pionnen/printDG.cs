@@ -83,8 +83,13 @@ namespace De_7_Pionnen
                     table.RowGroups.Add(g);
                 }
                 fd.Blocks.Add(table);
-
-                printDialog.PrintDocument(((IDocumentPaginatorSource)fd).DocumentPaginator, "");
+                try
+                {
+                    printDialog.PrintDocument(((IDocumentPaginatorSource)fd).DocumentPaginator, "");
+                } catch
+                {
+                    MessageBox.Show("Probleem met afdrukken, herstart het programma en probeer het nog eens!", "Probleem met afdrukken");
+                }
 
             }
         }

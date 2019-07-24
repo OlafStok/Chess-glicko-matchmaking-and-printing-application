@@ -38,23 +38,33 @@ namespace De_7_Pionnen
             {
                 Grid.RowDefinitions.Add(new RowDefinition());
                 Grid.ColumnDefinitions.Add(new ColumnDefinition());
+                if (i == 0)
+                {
+                    Grid.ColumnDefinitions.Add(new ColumnDefinition());
+                    Grid.ColumnDefinitions.Add(new ColumnDefinition());
+                    Grid.ColumnDefinitions.Add(new ColumnDefinition());
+                }
 
                 Border NaamBoven = new Border()
                 {
-                    Background = Brushes.Black,
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1, 1, 1, 1),
+                    Background = Brushes.LightGray,
                     Child = new Viewbox
                     {
                         StretchDirection = StretchDirection.Both,
                         Child = new TextBlock
                         {
-                            Text = aanwezigePersonen[i].Naam,
+                            Text = (i + 1).ToString(),
                             FontSize = 20,
-                            Foreground = Brushes.White
+                            Foreground = Brushes.Black
                         }
                     }
                 };
                 Border NaamLinks = new Border()
                 {
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1, 1, 1, 1),
                     Background = Brushes.White,
                     Child = new Viewbox
                     {
@@ -67,8 +77,26 @@ namespace De_7_Pionnen
                     }
                 };
 
-                Border Score = new Border()
+                Border NummerLinks = new Border()
                 {
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1, 1, 1, 1),
+                    Background = Brushes.White,
+                    Child = new Viewbox
+                    {
+                        StretchDirection = StretchDirection.Both,
+                        Child = new TextBlock
+                        {
+                            Text = (i+1).ToString(),
+                            FontSize = 20
+                        }
+                    }
+                };
+
+                Border Leeg = new Border()
+                {
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1, 1, 1, 1),
                     Child = new Viewbox
                     {
                         StretchDirection = StretchDirection.Both,
@@ -80,18 +108,68 @@ namespace De_7_Pionnen
                     }
                 };
 
-                Grid.SetColumn(Score, i + 1);
-                Grid.SetRow(Score, i + 1);
+                Border Score = new Border()
+                {
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1, 1, 1, 1),
+                    Child = new Viewbox
+                    {
+                        StretchDirection = StretchDirection.Both,
+                        Child = new TextBlock
+                        {
+                            Text = aanwezigePersonen[i].Score.ToString(),
+                            FontSize = 20
+                        }
+                    }
+                };
 
-                Grid.SetColumn(NaamBoven, i + 1);
+                Border Rating = new Border()
+                {
+                    BorderBrush = Brushes.Black,
+                    BorderThickness = new Thickness(1, 1, 1, 1),
+                    Child = new Viewbox
+                    {
+                        StretchDirection = StretchDirection.Both,
+                        Child = new TextBlock
+                        {
+                            Text = "X",
+                            FontSize = 20
+                        }
+                    }
+                };
+
+                Grid.SetColumn(Leeg, i + 2);
+                Grid.SetRow(Leeg, i + 1);
+
+                Grid.SetColumn(NaamBoven, i + 2);
                 Grid.SetRow(NaamBoven, 0);
 
-                Grid.SetColumn(NaamLinks, 0);
+                Grid.SetColumn(NaamLinks, 1);
                 Grid.SetRow(NaamLinks, i + 1);
 
-                Grid.Children.Add(Score);
+                Grid.SetColumn(NummerLinks, 0);
+                Grid.SetRow(NummerLinks, i + 1);
+
+                Grid.Children.Add(Leeg);
                 Grid.Children.Add(NaamBoven);
                 Grid.Children.Add(NaamLinks);
+                Grid.Children.Add(NummerLinks);
+
+                for (int j = 0; j < aanwezigePersonen.Count; j++)
+                {
+                    Border Cell = new Border()
+                    {
+                        BorderBrush = Brushes.Black,
+                        BorderThickness = new Thickness(1, 1, 1, 1),
+                        Child = new Viewbox
+                        {
+                            StretchDirection = StretchDirection.Both
+                        }
+                    };
+                    Grid.SetColumn(Cell, j + 2);
+                    Grid.SetRow(Cell, i+1);
+                    Grid.Children.Add(Cell);
+                }
             }
         }
     }

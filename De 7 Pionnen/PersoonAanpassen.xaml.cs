@@ -34,8 +34,8 @@ namespace De_7_Pionnen
             Id.Text = persoon.Id.ToString();
 
             //format text zodat floats klein lijken
-            Rating.Text = string.Format("{0:##########0.###}", float.Parse(Rating.Text));
-            Score.Text = string.Format("{0:##########0.###}", float.Parse(Score.Text));
+            Rating.Text = string.Format("{0:##########0.#}", float.Parse(Rating.Text));
+            Score.Text = string.Format("{0:##########0.#}", float.Parse(Score.Text));
 
             //check voor nummers
             Gespeeld.PreviewTextInput += IsInt;
