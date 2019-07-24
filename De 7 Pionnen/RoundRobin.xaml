@@ -10,7 +10,7 @@
         <local:DividerRowConverter x:Key="DividerRowConverter"/>
     </Window.Resources>
     <Grid>
-        <DataGrid x:Name="HuidigeMatches" Margin="10,10,10,93" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="#FFBEDEFD" Background="#FFBCE4F7">
+        <DataGrid x:Name="HuidigeMatches" Margin="10,10,10,93" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <DataGrid.CellStyle>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Setters>

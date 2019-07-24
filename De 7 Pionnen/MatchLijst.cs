@@ -47,30 +47,23 @@ namespace De_7_Pionnen
                     bool vorigeTegenstander = false;
                     foreach (Persoon p in p1.vorigeTegenstanders)
                     {
-
-                        Debug.WriteLine(p.Naam + " - " + aanwezigePersonen[j].Naam);
-
-                        if (aanwezigePersonen[j].Naam.Equals(p.Naam))
+                        if (aanwezigePersonen[j].Id == p.Id)
                             vorigeTegenstander = true;
                     }
-
-                    Debug.WriteLine(p1.Naam + ": " + vorigeTegenstander);
-
                     if (!vorigeTegenstander) {
 
-                        Debug.WriteLine(aanwezigePersonen.Count);
-
                         p2 = aanwezigePersonen[j];
-                        aanwezigePersonen.Remove(aanwezigePersonen.Find(persoon => persoon.Naam.Equals(p1.Naam)));
-                        aanwezigePersonen.Remove(aanwezigePersonen.Find(persoon => persoon.Naam.Equals(p2.Naam)));
-
-                        Debug.WriteLine(aanwezigePersonen.Count);
-
+                        aanwezigePersonen.Remove(aanwezigePersonen.Find(persoon => persoon.Id == p1.Id));
+                        aanwezigePersonen.Remove(aanwezigePersonen.Find(persoon => persoon.Id == p2.Id));
                         break;
                     } else
                     {
-                        if (aanwezigePersonen.Count <= 4) { 
-                            p2 = p1.vorigeTegenstanders[p1.vorigeTegenstanders.Count - 1];
+                        if (aanwezigePersonen.Count <= 4) {
+                            foreach (Persoon p in p1.vorigeTegenstanders)
+                            {
+                                if (p.Id == aanwezigePersonen[j].Id)
+                                    p2 = p;
+                            }
                             aanwezigePersonen.Remove(aanwezigePersonen.Find(persoon => persoon.Naam.Equals(p1.Naam)));
                             aanwezigePersonen.Remove(aanwezigePersonen.Find(persoon => persoon.Naam.Equals(p2.Naam)));
                             break;

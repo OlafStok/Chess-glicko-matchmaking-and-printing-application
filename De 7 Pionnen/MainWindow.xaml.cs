@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,6 +91,7 @@ namespace De_7_Pionnen
             {
                 if (p.Id > -1)
                     PersonenTabel.Items.Add(p);
+                Debug.WriteLine(p.Naam + ": " + p.Stijging.ToString());
             }
         }
 

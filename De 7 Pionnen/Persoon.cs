@@ -47,8 +47,9 @@ namespace De_7_Pionnen
 
         public Persoon(int id, string naam)
         {
-            this.Id = id;
-            this.Naam = naam;
+            Id = id;
+            Naam = naam;
+            OudePositie = -1;
             Aanwezig = true;
         }
 

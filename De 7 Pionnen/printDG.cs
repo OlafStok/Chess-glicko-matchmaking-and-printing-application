@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -70,6 +71,11 @@ namespace De_7_Pionnen
                         ro.Cells[k].BorderBrush = Brushes.Black;
                         ro.Cells[k].FontWeight = FontWeights.Bold;
                         ro.Cells[k].BorderThickness = new Thickness(1, 1, 1, 1);
+                        Debug.WriteLine(cellList[i][k]);
+                        if (cellList[i][k].StartsWith("Ronde "))
+                        {
+                            ro.Cells[k].Background = Brushes.AliceBlue;
+                        }
                     }
 
 

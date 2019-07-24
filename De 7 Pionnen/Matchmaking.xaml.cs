@@ -61,7 +61,8 @@ namespace De_7_Pionnen
                     matchLijsten.Remove(huidigeMatchLijst);
                     MatchLijst.GenereerMatchLijst();
                     huidigeMatchLijst = matchLijsten.Find(matchlijst => matchlijst.huidigeLijst);
-                } else
+                }
+                else
                 {
                     MessageBox.Show("Verander de matches zodat elke match een witte en zwarte speler heeft", "update matches");
                 }
@@ -75,11 +76,11 @@ namespace De_7_Pionnen
             bool elkeMatchGespeeld = true;
             foreach (Versus versus in huidigeMatchLijst.versuses)
             {
-                if (versus.Uitslag == null)
+                if (string.IsNullOrEmpty(versus.Uitslag))
                     elkeMatchGespeeld = false;
             }
             if (elkeMatchGespeeld)
-                if (MessageBox.Show("Weet u zeker dat u deze matches wilt afsluiten?", "Matchmaking afsluiten", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Alle uitslagen zijn ingevoerd. Wilt u deze resultaten doorvoeren?", "Matchmaking afsluiten", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     bool allePersonenBestaan = true;
                     foreach (Versus versus in huidigeMatchLijst.versuses)
@@ -91,79 +92,29 @@ namespace De_7_Pionnen
                     }
                     if (!allePersonenBestaan)
                     {
-                        MessageBox.Show("Verander de matches zodat elke match een witte en zwarte speler heeft", "update matches");
+                        MessageBox.Show("Verander de matches zodat elke match een witte en zwarte speler heeft.", "update matches");
                         return;
                     }
-                    huidigeMatchLijst.huidigeLijst = false;
-
-                    foreach (Versus versus in huidigeMatchLijst.versuses)
-                    {
-                        Persoon WitPersoon = versus.Wit;
-                        Persoon ZwartPersoon = versus.Zwart;
-
-                        int OudeWitPositie = WitPersoon.Positie;
-                        int OudeZwartPositie = ZwartPersoon.Positie;
-
-                        WitPersoon.OudePositie = OudeWitPositie;
-                        ZwartPersoon.OudePositie = OudeZwartPositie;
-                    }
-                    foreach (Versus versus in huidigeMatchLijst.versuses)
-                    {
-                        Persoon WitPersoon = versus.Wit;
-                        Persoon ZwartPersoon = versus.Zwart;
-                        double ScoreWit = versus.Uitslag.Equals("0-1") ? 0.0 : versus.Uitslag.Equals("1-0") ? 1.0 : 0.5;
-                        double ScoreZwart = ScoreWit == 0.0 ? 1.0 : ScoreWit == 1.0 ? 0.0 : 0.5;
-
-                        //update glicko rating
-                        Glicko2.GlickoOpponent WitTegenstander = new Glicko2.GlickoOpponent(versus.Wit.glicko.GetOriginalGlickoPlayer(), ScoreZwart);
-                        Glicko2.GlickoOpponent ZwartTegenstander = new Glicko2.GlickoOpponent(versus.Zwart.glicko.GetOriginalGlickoPlayer(), ScoreWit);
-
-                        Glicko2.GlickoPlayer WitOrigineleSpeler = Glicko2.GlickoCalculator.CalculateRanking(versus.Wit.glicko.GetOriginalGlickoPlayer(), new List<Glicko2.GlickoOpponent>() { ZwartTegenstander });
-                        Glicko2.GlickoPlayer ZwartOrigineleSpeler = Glicko2.GlickoCalculator.CalculateRanking(versus.Zwart.glicko.GetOriginalGlickoPlayer(), new List<Glicko2.GlickoOpponent>() { WitTegenstander });
-
-                        WitPersoon.glicko.Rating = WitOrigineleSpeler.Rating;
-                        WitPersoon.glicko.RatingDeviation = WitOrigineleSpeler.RatingDeviation;
-                        WitPersoon.glicko.Volatility = WitOrigineleSpeler.Volatility;
-
-                        ZwartPersoon.glicko.Rating = ZwartOrigineleSpeler.Rating;
-                        ZwartPersoon.glicko.RatingDeviation = ZwartOrigineleSpeler.RatingDeviation;
-                        ZwartPersoon.glicko.Volatility = ZwartOrigineleSpeler.Volatility;
-
-                        //update gespeeld, gewonnen, verloren, gelijkspel, score en stijging
-                        WitPersoon.Gespeeld += 1;
-                        WitPersoon.Gewonnen += ScoreWit == 1 ? 1 : 0;
-                        WitPersoon.Verloren += ScoreWit == 0 ? 1 : 0;
-                        WitPersoon.Gelijkspel += ScoreWit == 0.5 ? 1 : 0;
-                        WitPersoon.Score += ScoreWit == 1 ? 1 : ScoreWit == 0 ? -1 : 0;
-                        WitPersoon.Stijging = WitPersoon.OudePositie - DataSources.Instance.personen.Find(persoon => persoon.Id == WitPersoon.Id).Positie;
-                        if (WitPersoon.vorigeTegenstanders.Count > VorigeTegenstanderCount)
-                        {
-                            WitPersoon.vorigeTegenstanders.RemoveAt(VorigeTegenstanderCount - 1);
-                        }
-                        WitPersoon.vorigeTegenstanders.Add(ZwartPersoon);
-
-                        ZwartPersoon.Gespeeld += 1;
-                        ZwartPersoon.Gewonnen += ScoreZwart == 1 ? 1 : 0;
-                        ZwartPersoon.Verloren += ScoreZwart == 0 ? 1 : 0;
-                        ZwartPersoon.Gelijkspel += ScoreZwart == 0.5 ? 1 : 0;
-                        ZwartPersoon.Score += ScoreZwart == 1 ? 1 : ScoreZwart == 0 ? -1 : 0;
-                        ZwartPersoon.Stijging = ZwartPersoon.OudePositie - DataSources.Instance.personen.Find(persoon => persoon.Id == ZwartPersoon.Id).Positie;
-                        if (ZwartPersoon.vorigeTegenstanders.Count > VorigeTegenstanderCount)
-                        {
-                            ZwartPersoon.vorigeTegenstanders.RemoveAt(VorigeTegenstanderCount - 1);
-                        }
-                        ZwartPersoon.vorigeTegenstanders.Add(WitPersoon);
-                    }
-
-                    //update aanwezigheid
-                    foreach (Persoon persoon in DataSources.Instance.personen)
-                        persoon.Aanwezig = true;
-
-                    Close();
+                    UpdateResultaten();
                 }
-                else { }
+                else
+                {
+
+                }
             else
+            {
+                if (MessageBox.Show("Nog niet alle resultaten zijn ingevoerd, Wilt u de ingevoerde resultaten doorvoeren en de matchmaking afsluiten?", "Nog niet alles is ingevoerd", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    foreach (Versus v in huidigeMatchLijst.versuses)
+                    {
+                        if (string.IsNullOrEmpty(v.Uitslag))
+                            v.Uitslag = "0-0";
+                    }
+                    UpdateResultaten();
+                }
+
                 Close();
+            }
         }
 
         public void VulDataGrid()
@@ -236,6 +187,72 @@ namespace De_7_Pionnen
             {
                 Match_Verwijderen(sender, e);
             }
+        }
+
+        private void UpdateResultaten()
+        {
+            huidigeMatchLijst.huidigeLijst = false;
+
+            foreach (Versus versus in huidigeMatchLijst.versuses)
+            {
+                Persoon WitPersoon = versus.Wit;
+                Persoon ZwartPersoon = versus.Zwart;
+
+                WitPersoon.OudePositie = WitPersoon.Positie;
+                ZwartPersoon.OudePositie = ZwartPersoon.Positie;
+            }
+            foreach (Versus versus in huidigeMatchLijst.versuses)
+            {
+                Persoon WitPersoon = versus.Wit;
+                Persoon ZwartPersoon = versus.Zwart;
+                double ScoreWit = versus.Uitslag.Equals("0-1") ? 0.0 : versus.Uitslag.Equals("1-0") ? 1.0 : 0.5;
+                double ScoreZwart = ScoreWit == 0.0 ? 1.0 : ScoreWit == 1.0 ? 0.0 : 0.5;
+
+                //update glicko rating
+                Glicko2.GlickoOpponent WitTegenstander = new Glicko2.GlickoOpponent(versus.Wit.glicko.GetOriginalGlickoPlayer(), ScoreZwart);
+                Glicko2.GlickoOpponent ZwartTegenstander = new Glicko2.GlickoOpponent(versus.Zwart.glicko.GetOriginalGlickoPlayer(), ScoreWit);
+
+                Glicko2.GlickoPlayer WitOrigineleSpeler = Glicko2.GlickoCalculator.CalculateRanking(versus.Wit.glicko.GetOriginalGlickoPlayer(), new List<Glicko2.GlickoOpponent>() { ZwartTegenstander });
+                Glicko2.GlickoPlayer ZwartOrigineleSpeler = Glicko2.GlickoCalculator.CalculateRanking(versus.Zwart.glicko.GetOriginalGlickoPlayer(), new List<Glicko2.GlickoOpponent>() { WitTegenstander });
+
+                WitPersoon.glicko.Rating = WitOrigineleSpeler.Rating;
+                WitPersoon.glicko.RatingDeviation = WitOrigineleSpeler.RatingDeviation;
+                WitPersoon.glicko.Volatility = WitOrigineleSpeler.Volatility;
+
+                ZwartPersoon.glicko.Rating = ZwartOrigineleSpeler.Rating;
+                ZwartPersoon.glicko.RatingDeviation = ZwartOrigineleSpeler.RatingDeviation;
+                ZwartPersoon.glicko.Volatility = ZwartOrigineleSpeler.Volatility;
+
+                //update gespeeld, gewonnen, verloren, gelijkspel, score en stijging
+                WitPersoon.Gespeeld += 1;
+                WitPersoon.Gewonnen += ScoreWit == 1 ? 1 : 0;
+                WitPersoon.Verloren += ScoreWit == 0 ? 1 : 0;
+                WitPersoon.Gelijkspel += ScoreWit == 0.5 ? 1 : 0;
+                WitPersoon.Score += ScoreWit == 1 ? 1 : ScoreWit == 0 ? -1 : 0;
+                if (WitPersoon.vorigeTegenstanders.Count > VorigeTegenstanderCount)
+                {
+                    WitPersoon.vorigeTegenstanders.RemoveAt(VorigeTegenstanderCount - 1);
+                }
+                WitPersoon.vorigeTegenstanders.Add(ZwartPersoon);
+
+                ZwartPersoon.Gespeeld += 1;
+                ZwartPersoon.Gewonnen += ScoreZwart == 1 ? 1 : 0;
+                ZwartPersoon.Verloren += ScoreZwart == 0 ? 1 : 0;
+                ZwartPersoon.Gelijkspel += ScoreZwart == 0.5 ? 1 : 0;
+                ZwartPersoon.Score += ScoreZwart == 1 ? 1 : ScoreZwart == 0 ? -1 : 0;
+
+                if (ZwartPersoon.vorigeTegenstanders.Count > VorigeTegenstanderCount)
+                {
+                    ZwartPersoon.vorigeTegenstanders.RemoveAt(VorigeTegenstanderCount - 1);
+                }
+                ZwartPersoon.vorigeTegenstanders.Add(WitPersoon);
+            }
+
+            //update aanwezigheid
+            foreach (Persoon persoon in DataSources.Instance.personen)
+                persoon.Aanwezig = true;
+
+            Close();
         }
     }
 }

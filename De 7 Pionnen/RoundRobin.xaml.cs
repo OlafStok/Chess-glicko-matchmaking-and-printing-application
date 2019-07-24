@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WindowsFormsApp2;
 
 namespace De_7_Pionnen
 {
@@ -135,7 +137,7 @@ namespace De_7_Pionnen
                 {
                     //voeg divider toe
                     if (DataSources.Instance.personen.Find(p => p.Id == v.Wit.Id - (aanwezigePersonen.Count-1)) == null)
-                        DataSources.Instance.personen.Add(new Persoon(v.Wit.Id - (aanwezigePersonen.Count-1), "Ronde " + (-1 * v.Wit.Id + (aanwezigePersonen.Count-1))));
+                        DataSources.Instance.personen.Add(new Persoon(v.Wit.Id - (aanwezigePersonen.Count - 1), "Ronde " + (-1 * v.Wit.Id + (aanwezigePersonen.Count - 1))) { glicko = new GlickoPlayer() { Rating = float.MinValue } });
                     Persoon divider = DataSources.Instance.personen.Find(p => p.Id == v.Wit.Id - (aanwezigePersonen.Count-1));
                     ronde2versuses.Add(new Versus() { Wit = divider, Zwart = divider });
                 }
@@ -149,7 +151,7 @@ namespace De_7_Pionnen
             {
                 //voeg divider toe
                 if (DataSources.Instance.personen.Find(p => p.Id == -1 * (ronde + startRonde)) == null)
-                    DataSources.Instance.personen.Add(new Persoon(-1 * (ronde + startRonde), "Ronde " + (ronde + startRonde)));
+                    DataSources.Instance.personen.Add(new Persoon(-1 * (ronde + startRonde), "Ronde " + (ronde + startRonde)) { glicko = new GlickoPlayer() { Rating = float.MinValue } });
                 Persoon divider = DataSources.Instance.personen.Find(p => p.Id == -1 * (ronde + startRonde));
                 versusLijst.Add(new Versus() { Wit = divider, Zwart = divider });
 
@@ -159,32 +161,54 @@ namespace De_7_Pionnen
                     if (zwartLijst[i].Id != -999 && witLijst[i].Id != -999)
                         versusLijst.Add(new Versus() { Id = versusLijst.Count, Wit = witLijst[i], Zwart = zwartLijst[i] });
                 }
-
                 //schuif iedereen 1 positie op, behalve de eerste van witlijst
-                Persoon bewegendeWit = witLijst[1];
-                Persoon bewegendeZwart = zwartLijst[zwartLijst.Count - 1];
-                witLijst.RemoveAt(1);
-                zwartLijst.RemoveAt(zwartLijst.Count - 1);
-
-                witLijst.Add(bewegendeZwart);
-                zwartLijst.Insert(0, bewegendeWit);
+                Persoon bewegendeWit = new Persoon(), bewegendeZwart = new Persoon();
+                if (witLijst.Count > 1)
+                    bewegendeWit = witLijst[1];
+                if (zwartLijst.Count > 1)
+                    bewegendeZwart = zwartLijst[zwartLijst.Count - 1];
+                if (witLijst.Count > 1)
+                {
+                    witLijst.RemoveAt(1);
+                    zwartLijst.RemoveAt(zwartLijst.Count - 1);
+                    witLijst.Add(bewegendeZwart);
+                    zwartLijst.Insert(0, bewegendeWit);
+                }
             }
         }
 
         private void PrintTabel_Click(object sender, RoutedEventArgs e)
         {
-            var tabel = new GroteLadder();
+            var tabel = new RoundRobinTabel();
             tabel.Show();
             tabel.WindowState = WindowState.Minimized;
             PrintDialog print = new PrintDialog();
-            print.ShowDialog();
-            print.PrintVisual(tabel.Grid, "Round Robin Tabel");
+            if ((bool)print.ShowDialog())
+                print.PrintVisual(tabel.Grid, "Round Robin Tabel");
             tabel.Close();
         }
 
         private void Afsluiten_Click(object sender, RoutedEventArgs e)
         {
-
+            bool alleVersusIngevuld = true;
+            List<Versus> versusLijstZonderDividers = new List<Versus>();
+            foreach (Versus versus in versusLijst)
+            {
+                if (!versus.Wit.Naam.StartsWith("Ronde "))
+                {
+                    versusLijstZonderDividers.Add(versus);
+                    if (string.IsNullOrEmpty(versus.Uitslag))
+                        alleVersusIngevuld = false;
+                }
+            }
+            if (alleVersusIngevuld)
+            {
+                //doe zelfde wiskunde als bij matchmaking, maar dan met versuslijstzonderdivider
+            } else
+            {
+                //vraag of de resultaten moeten worden doorgevoerd, of of het programma tijdelijk gesloten wordt
+                
+            }
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WindowsFormsApp2;
 
 namespace De_7_Pionnen
 {
@@ -61,19 +63,23 @@ namespace De_7_Pionnen
 
                 for (var i = 0; i < instance.personen.Count; i++)
                 {
-                    float hogerePersoonScore;
-                    float lagerePersoonScore;
-                    hogerePersoonScore = i <= 0 ? float.MaxValue : instance.personen[i - 1].Score;
+                    //update positie
+                    Persoon hogerePersoon;
+                    hogerePersoon = i <= 0 ? new Persoon() { glicko = new GlickoPlayer() { Rating = float.MaxValue } } : instance.personen[i - 1];
 
-                    if (instance.personen[i].Score == hogerePersoonScore)
-                        instance.personen[i].Positie = instance.personen[i - 1].Positie;
+                    if (instance.personen[i].glicko.Rating == hogerePersoon.glicko.Rating)
+                        instance.personen[i].Positie = hogerePersoon.Positie;
 
                     else
                     {
                         scoreTeller++;
                         instance.personen[i].Positie = scoreTeller;
                     }
-                        
+
+                    //update stijging
+                    if (instance.personen[i].OudePositie == -1)
+                        instance.personen[i].OudePositie = instance.personen[i].Positie;
+                    instance.personen[i].Stijging = instance.personen[i].OudePositie - instance.personen[i].Positie;
                 }
 
                 instance.matchLijsten.Sort(delegate (MatchLijst m1, MatchLijst m2)

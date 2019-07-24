@@ -156,8 +156,8 @@
     </ApplicationDefinition>
     <Compile Include="DataSources.cs" />
     <Compile Include="DividerRowConverter.cs" />
-    <Compile Include="GroteLadder.xaml.cs">
-      <DependentUpon>GroteLadder.xaml</DependentUpon>
+    <Compile Include="RoundRobinTabel.xaml.cs">
+      <DependentUpon>RoundRobinTabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Matchmaking.xaml.cs">
       <DependentUpon>Matchmaking.xaml</DependentUpon>
@@ -179,7 +179,7 @@
     <Compile Include="VersusAanpassen.xaml.cs">
       <DependentUpon>VersusAanpassen.xaml</DependentUpon>
     </Compile>
-    <Page Include="GroteLadder.xaml">
+    <Page Include="RoundRobinTabel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
