@@ -1,0 +1,27 @@
+﻿<Window x:Class="De_7_Pionnen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:De_7_Pionnen"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+    </Window.Resources>
+    <Grid>
+        <Button Content="Persoon toevoegen" HorizontalAlignment="Left" Margin="10,0,0,47" VerticalAlignment="Bottom" Width="373" Height="41" FontSize="18" FontWeight="Bold" Click="Persoon_Toevoegen"/>
+        <Button Content="Persoon verwijderen" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="373" Height="32" FontSize="18" FontWeight="Bold" Click="Persoon_Verwijderen"/>
+        <Button x:Name="Matchmaking" Content="Matchmaking" HorizontalAlignment="Left" Margin="581,0,0,10" VerticalAlignment="Bottom" Width="201" Height="78" FontSize="18" FontWeight="Bold" Click="Matchmaking_Click"/>
+        <DataGrid x:Name="PersonenTabel" HorizontalAlignment="Stretch" Margin="10,23,10,100" VerticalAlignment="Stretch" SelectionUnit="Cell" PreviewKeyDown="Delete_Click"/>
+        <Button x:Name="DoubleRoundRobin" Content="Double Round Robin" HorizontalAlignment="Left" Margin="388,0,0,47" VerticalAlignment="Bottom" Width="188" Height="41" FontSize="18" FontWeight="Bold" Click="DubbelRoundRobin_Click"/>
+        <Menu HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="56">
+            <MenuItem Header="Bestand">
+                <MenuItem Header="Nieuw" Click="Nieuw_Click"/>
+                <MenuItem Header="Openen..." Click="Openen_Click"/>
+                <MenuItem Header="Opslaan" Click="Opslaan_Click"/>
+                <MenuItem Header="Opslaan als..." Click="OpslaanAls_Click"/>
+            </MenuItem>
+        </Menu>
+        <Button x:Name="RoundRobin" Content="Round Robin" HorizontalAlignment="Left" Margin="388,0,0,10" VerticalAlignment="Bottom" Width="188" Height="32" FontSize="18" FontWeight="Bold" Click="RoundRobin_Click"/>
+    </Grid>
+</Window>

@@ -1,0 +1,30 @@
+﻿<Window x:Class="De_7_Pionnen.PersoonAanpassen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:De_7_Pionnen"
+        mc:Ignorable="d"
+        Title="PersoonAanpassen" Height="450" Width="800">
+    <Grid>
+        <Label Content="Naam:" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Height="41" Width="127" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Naam" HorizontalAlignment="Left" Height="41" Margin="137,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="421" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Gespeeld:" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Height="41" Width="127" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Gespeeld" HorizontalAlignment="Left" Height="41" Margin="137,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Gewonnen:" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Height="41" Width="127" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Gewonnen" HorizontalAlignment="Left" Height="41" Margin="137,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Verloren:" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Height="41" Width="127" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Verloren" HorizontalAlignment="Left" Height="41" Margin="137,201,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Rating:" HorizontalAlignment="Left" Margin="311,109,0,0" VerticalAlignment="Top" Height="41" Width="127" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Rating" HorizontalAlignment="Left" Height="41" Margin="438,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Score:" HorizontalAlignment="Left" Margin="311,155,0,0" VerticalAlignment="Top" Height="41" Width="127" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Score" HorizontalAlignment="Left" Height="41" Margin="438,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Gelijkspel:" HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top" Height="41" Width="127" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="Gelijkspel" HorizontalAlignment="Left" Height="41" Margin="137,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20" FontWeight="Bold"/>
+        <Separator HorizontalAlignment="Left" Height="41" Margin="10,68,0,0" VerticalAlignment="Top" Width="247"/>
+        <Button x:Name="annuleren" Content="Annuleren" HorizontalAlignment="Left" Margin="10,364,0,0" VerticalAlignment="Top" Width="166" Height="45" FontSize="20" FontWeight="Bold" Click="Annuleren_Click"/>
+        <Button x:Name="Toepassen" Content="Toepassen" HorizontalAlignment="Left" Margin="616,364,0,0" VerticalAlignment="Top" Width="166" Height="45" FontSize="20" FontWeight="Bold" Click="Toepassen_Click"/>
+        <TextBox x:Name="Id" HorizontalAlignment="Left" Height="41" Margin="262,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20" FontWeight="Bold" Visibility="Hidden"/>
+
+    </Grid>
+</Window>
