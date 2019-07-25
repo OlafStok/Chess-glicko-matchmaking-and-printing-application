@@ -14,6 +14,8 @@ namespace De_7_Pionnen
     {
         public void PrintRoundRobinOfMatchLijst(string title, List<string> headerList, List<List<string>> cellList, List<string> afwezigen = null)
         {
+            if (afwezigen == null)
+                afwezigen = new List<string>();
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
             {
@@ -147,7 +149,8 @@ namespace De_7_Pionnen
                 }
 
                 fd.Blocks.Add(table);
-                fd.Blocks.Add(tableafw);
+                if (afwezigen.Count > 0)
+                    fd.Blocks.Add(tableafw);
 
                 try
                 {
