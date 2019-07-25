@@ -22,6 +22,7 @@ namespace De_7_Pionnen
     {
         public bool toevoegen;
         public List<Versus> RoundRobinLijst = null;
+        public Versus nieuweVersus = new Versus();
         public VersusAanpassen(Versus versus, bool toevoegen = false)
         {
             this.toevoegen = toevoegen;
@@ -77,6 +78,7 @@ namespace De_7_Pionnen
         {
             RoundRobinLijst = roundRobinLijst;
             this.toevoegen = toevoegen;
+            nieuweVersus = versus;
             List<Uitslag> uitslagen = new List<Uitslag>();
             uitslagen.Add(new Uitslag("Wit wint", "1-0"));
             uitslagen.Add(new Uitslag("Zwart wint", "0-1"));
@@ -173,6 +175,11 @@ namespace De_7_Pionnen
             } else
             {
                 Versus huidigeVersus = RoundRobinLijst.Find(versus => versus.Id == int.Parse(Id.Text));
+                if (huidigeVersus == null)
+                    Close();
+
+                if (toevoegen)
+                    huidigeVersus = nieuweVersus;
                 if (Wit.SelectedValue != null)
                     huidigeVersus.Wit = DataSources.Instance.personen.Find(p => p.Id == (int)Wit.SelectedValue);
                 else
@@ -185,6 +192,9 @@ namespace De_7_Pionnen
 
                 if (Uitslag.SelectedValue != null)
                     huidigeVersus.Uitslag = Uitslag.SelectedValue.ToString();
+
+                if (toevoegen)
+                    RoundRobinLijst.Add(huidigeVersus);
 
                 Close();
             }

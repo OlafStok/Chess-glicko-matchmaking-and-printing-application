@@ -22,7 +22,20 @@ namespace De_7_Pionnen
 
         public override string ToString()
         {
-            return DataSources.Instance.personen.Find(P => P.Id == WitId).Naam + " - " + DataSources.Instance.personen.Find(P => P.Id == ZwartId).Naam;
+            try
+            {
+                string wit = "", zwart = "";
+                if (DataSources.Instance.personen.Find(P => P.Id == WitId).Naam != null)
+                    wit = DataSources.Instance.personen.Find(P => P.Id == WitId).Naam;
+
+                if (DataSources.Instance.personen.Find(P => P.Id == ZwartId).Naam != null)
+                    zwart = DataSources.Instance.personen.Find(P => P.Id == ZwartId).Naam;
+
+                return wit + " - " + zwart;
+            } catch (Exception e)
+            {
+                return "";
+            }
         }
     }
 }

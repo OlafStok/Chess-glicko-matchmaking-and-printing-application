@@ -19,7 +19,7 @@ namespace De_7_Pionnen
         public int Gewonnen { get; set; }
         public int Verloren { get; set; }
         public int Gelijkspel { get; set; }
-        public float Score { get; set; }
+        public double Score { get; set; }
         public bool Aanwezig { get; set; }
 
         public List<Persoon> vorigeTegenstanders = new List<Persoon>();
@@ -30,7 +30,7 @@ namespace De_7_Pionnen
         {
         }
 
-        public Persoon(int id, string naam, int positie, int stijging, int gespeeld, int gewonnen, int verloren, int gelijkspel, float score, bool aanwezig, GlickoPlayer glicko)
+        public Persoon(int id, string naam, int positie, int stijging, int gespeeld, int gewonnen, int verloren, int gelijkspel, double score, bool aanwezig, GlickoPlayer glicko)
         {
             Id = id;
             Naam = naam;
@@ -55,7 +55,13 @@ namespace De_7_Pionnen
 
         public override string ToString()
         {
-            return Naam + " - " + Id;
+            try
+            {
+                return Naam + " - " + Id;
+            } catch (Exception e)
+            {
+                return "";
+            }
         }
     }
 }

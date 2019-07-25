@@ -11,6 +11,8 @@
         <Button x:Name="toevoegen" Content="Toevoegen" HorizontalAlignment="Left" Margin="10,201,0,0" VerticalAlignment="Top" Width="166" Height="45" FontSize="20" FontWeight="Bold" Click="Toevoegen_Click" IsDefault="True"/>
         <TextBox x:Name="naam" HorizontalAlignment="Left" Height="39" Margin="96,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" FontSize="20" FontWeight="Bold"/>
         <Label Content="Naam" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Height="39" Width="81" FontSize="20" FontWeight="Bold"/>
+        <TextBox x:Name="rating" HorizontalAlignment="Left" Height="39" Margin="96,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275" FontSize="20" FontWeight="Bold"/>
+        <Label Content="Rating" HorizontalAlignment="Left" Margin="10,116,0,0" VerticalAlignment="Top" Height="39" Width="81" FontSize="20" FontWeight="Bold" RenderTransformOrigin="0.494,1.846"/>
 
     </Grid>
 </Window>

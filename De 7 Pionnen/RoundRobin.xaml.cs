@@ -24,9 +24,10 @@ namespace De_7_Pionnen
     {
         private List<Versus> versusLijst = new List<Versus>();
         private List<Persoon> aanwezigePersonen = new List<Persoon>();
-        private string huidigeNaam;
+        private bool dubbel;
         public RoundRobin(bool doubleRoundRobin)
         {
+            dubbel = doubleRoundRobin;
             foreach (Persoon p in DataSources.Instance.personen)
             {
                 if (p.Aanwezig && p.Id > -1)
@@ -69,7 +70,7 @@ namespace De_7_Pionnen
             {
                 items.Add(new List<string> { versus.Wit == null ? "" : versus.Wit.Naam, versus.Zwart == null ? "" : versus.Zwart.Naam, versus.Uitslag == null ? "-" : versus.Uitslag });
             }
-            new PrintDG().printDG("Matches: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items);
+            new PrintDG().PrintRoundRobinOfMatchLijst((dubbel ? "Double " : "") + "Round Robin: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items);
         }
 
         private void DubbelKlik(object sender, MouseButtonEventArgs e)
@@ -203,12 +204,14 @@ namespace De_7_Pionnen
             //}
             //if (alleVersusIngevuld)
             //{
-                //doe zelfde wiskunde als bij matchmaking, maar dan met versuslijstzonderdivider
+            //doe zelfde wiskunde als bij matchmaking, maar dan met versuslijstzonderdivider
             //} else
             //{
-                //vraag of de resultaten moeten worden doorgevoerd, of of het programma tijdelijk gesloten wordt
-                
+            //vraag of de resultaten moeten worden doorgevoerd, of of het programma tijdelijk gesloten wordt
+
             //}
+            if (MessageBox.Show("Weet u zeker dat u de round robin wilt afsluiten?", "Round robin afsluiten", MessageBoxButton.YesNoCancel) == MessageBoxResult.Yes)
+                Close();
         }
     }
 }

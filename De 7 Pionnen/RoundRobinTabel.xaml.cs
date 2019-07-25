@@ -132,16 +132,16 @@ namespace De_7_Pionnen
                         StretchDirection = StretchDirection.Both,
                         Child = new TextBlock
                         {
-                            Text = "X",
+                            Text = string.Format("{0:##########0.#}", aanwezigePersonen[i].glicko.Rating),
                             FontSize = 20
                         }
                     }
                 };
 
-                Grid.SetColumn(Leeg, i + 2);
+                Grid.SetColumn(Leeg, i + 4);
                 Grid.SetRow(Leeg, i + 1);
 
-                Grid.SetColumn(NaamBoven, i + 2);
+                Grid.SetColumn(NaamBoven, i + 4);
                 Grid.SetRow(NaamBoven, 0);
 
                 Grid.SetColumn(NaamLinks, 1);
@@ -150,10 +150,18 @@ namespace De_7_Pionnen
                 Grid.SetColumn(NummerLinks, 0);
                 Grid.SetRow(NummerLinks, i + 1);
 
+                Grid.SetColumn(Rating, 2);
+                Grid.SetRow(Rating, i + 1);
+
+                Grid.SetColumn(Score, 3);
+                Grid.SetRow(Score, i + 1);
+
                 Grid.Children.Add(Leeg);
                 Grid.Children.Add(NaamBoven);
                 Grid.Children.Add(NaamLinks);
                 Grid.Children.Add(NummerLinks);
+                Grid.Children.Add(Rating);
+                Grid.Children.Add(Score);
 
                 for (int j = 0; j < aanwezigePersonen.Count; j++)
                 {
@@ -166,7 +174,7 @@ namespace De_7_Pionnen
                             StretchDirection = StretchDirection.Both
                         }
                     };
-                    Grid.SetColumn(Cell, j + 2);
+                    Grid.SetColumn(Cell, j + 4);
                     Grid.SetRow(Cell, i+1);
                     Grid.Children.Add(Cell);
                 }

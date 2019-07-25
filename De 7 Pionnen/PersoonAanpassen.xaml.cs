@@ -60,7 +60,7 @@ namespace De_7_Pionnen
             geUpdatePersoon.Verloren = int.Parse(Verloren.Text);
             geUpdatePersoon.Gelijkspel = int.Parse(Gelijkspel.Text);
             geUpdatePersoon.glicko.Rating = float.Parse(Rating.Text.Replace('.', ','));
-            geUpdatePersoon.Score = float.Parse(Score.Text.Replace('.', ','));
+            geUpdatePersoon.Score = double.Parse(Score.Text.Replace('.', ','));
             
 
             Close();

@@ -156,6 +156,7 @@
     </ApplicationDefinition>
     <Compile Include="DataSources.cs" />
     <Compile Include="DividerRowConverter.cs" />
+    <Compile Include="OpgeslagenBestand.cs" />
     <Compile Include="RoundRobinTabel.xaml.cs">
       <DependentUpon>RoundRobinTabel.xaml</DependentUpon>
     </Compile>

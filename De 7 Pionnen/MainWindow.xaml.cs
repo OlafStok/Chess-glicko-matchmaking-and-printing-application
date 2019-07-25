@@ -37,7 +37,7 @@ namespace De_7_Pionnen
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "#", Binding = new Binding("Positie"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "+/-", Binding = new Binding("Stijging"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Naam", Binding = new Binding("Naam"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
-            PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Rating", Binding = new Binding("glicko.Rating") { StringFormat = "##########0.###" }, IsReadOnly = true, FontSize = 20, HeaderStyle = style });
+            PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Rating", Binding = new Binding("glicko.Rating") { StringFormat = "##########0.#" }, IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Gespeeld", Binding = new Binding("Gespeeld"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Gewonnen", Binding = new Binding("Gewonnen"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Verloren", Binding = new Binding("Verloren"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
@@ -158,9 +158,8 @@ namespace De_7_Pionnen
                 BestandsPad = ofd.FileName;
                 BestandsPad = BestandsPad.Replace(BestandsNaam, "");
 
-                string dataNaam = (string)Persistentie.Laad(BestandsPad + BestandsNaam);
-                DataSources.Instance.personen = (List<Persoon>)Persistentie.Laad(dataNaam + "_personen");
-                DataSources.Instance.matchLijsten = (List<MatchLijst>)Persistentie.Laad(dataNaam + "_matchLijsten");
+                DataSources.Instance.personen = ((OpgeslagenBestand)Persistentie.Laad(BestandsPad + BestandsNaam)).personen;
+                DataSources.Instance.matchLijsten = ((OpgeslagenBestand)Persistentie.Laad(BestandsPad + BestandsNaam)).matchlijsten;
 
                 VulDataGrid();
             }
@@ -173,9 +172,7 @@ namespace De_7_Pionnen
                 OpslaanAls_Click(sender, e);
             } else
             {
-                Persistentie.Opslaan(DataSources.Instance.personen, BestandsNaam + "_personen");
-                Persistentie.Opslaan(DataSources.Instance.matchLijsten, BestandsNaam + "_matchLijsten");
-                Persistentie.Opslaan(BestandsNaam, BestandsPad + BestandsNaam);
+                Persistentie.Opslaan(new OpgeslagenBestand() {personen = DataSources.Instance.personen, matchlijsten = DataSources.Instance.matchLijsten }, BestandsPad + BestandsNaam);
             }
         }
 

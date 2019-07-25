@@ -12,7 +12,7 @@ namespace De_7_Pionnen
 {
     public class PrintDG
     {
-        public void printDG(string title, List<string> headerList, List<List<string>> cellList)
+        public void PrintRoundRobinOfMatchLijst(string title, List<string> headerList, List<List<string>> cellList)
         {
             PrintDialog printDialog = new PrintDialog();
             if (printDialog.ShowDialog() == true)
@@ -56,12 +56,24 @@ namespace De_7_Pionnen
                 {
                     TableRowGroup g = new TableRowGroup();
                     TableRow ro = new TableRow();
+                    if (cellList[i][0].StartsWith("Ronde "))
+                    {
+                        Debug.WriteLine("dit is een ronde cell, voeg lege toe..");
+                        foreach (var item in cellList[i]) {
+                            ro.Cells.Add(new TableCell(new Paragraph(new Run(""))));
+                            Debug.WriteLine("lege cell toegevoegd!");
+                        }
+                        g.Rows.Add(ro);
+                        table.RowGroups.Add(g);
+                        g = new TableRowGroup();
+                        ro = new TableRow();
+                    }
                     for (int j = 0; j < cellList[i].Count; j++)
                     {
                         ro.Cells.Add(new TableCell(new Paragraph(new Run(cellList[i][j]))));
                     }
 
-                    for (int k = 0; k < 3; k++)
+                    for (int k = 0; k < cellList[0].Count; k++)
                     {
                         ro.Cells[k].ColumnSpan = 4;
                         ro.Cells[k].Padding = new Thickness(4);
@@ -72,9 +84,11 @@ namespace De_7_Pionnen
                         ro.Cells[k].FontWeight = FontWeights.Bold;
                         ro.Cells[k].BorderThickness = new Thickness(1, 1, 1, 1);
                         Debug.WriteLine(cellList[i][k]);
-                        if (cellList[i][k].StartsWith("Ronde "))
+                        if (cellList[i][0].StartsWith("Ronde "))
                         {
+
                             ro.Cells[k].Background = Brushes.AliceBlue;
+                            ro.Cells[2].Foreground = Brushes.AliceBlue;
                         }
                     }
 

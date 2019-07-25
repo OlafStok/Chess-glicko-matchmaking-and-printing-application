@@ -31,6 +31,8 @@ namespace De_7_Pionnen
                 vorigeMatchLijst = new MatchLijst();
             InitializeComponent();
 
+            Ronde.Text = (huidigeMatchLijst.nummer+1).ToString();
+
             Style style = new Style();
             style.Setters.Add(new Setter(GridViewColumnHeader.FontSizeProperty, 20.0));
 
@@ -103,17 +105,18 @@ namespace De_7_Pionnen
                 }
             else
             {
-                if (MessageBox.Show("Nog niet alle resultaten zijn ingevoerd, Wilt u de ingevoerde resultaten doorvoeren en de matchmaking afsluiten?", "Nog niet alles is ingevoerd", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                var result = MessageBox.Show("Nog niet alle resultaten zijn ingevoerd, Wilt u de ingevoerde resultaten doorvoeren en de rest van de matches verwijderen?", "Nog niet alles is ingevoerd", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
                 {
                     foreach (Versus v in huidigeMatchLijst.versuses)
                     {
                         if (string.IsNullOrEmpty(v.Uitslag))
-                            v.Uitslag = "0-0";
+                            huidigeMatchLijst.versuses.Remove(v);
                     }
                     UpdateResultaten();
                 }
-
-                Close();
+                else if (result == MessageBoxResult.No)
+                    Close();
             }
         }
 
@@ -138,7 +141,7 @@ namespace De_7_Pionnen
             {
                 items.Add(new List<string> { versus.Wit == null ? "" : versus.Wit.Naam, versus.Zwart == null ? "" : versus.Zwart.Naam, versus.Uitslag == null ? "-" : versus.Uitslag });
             }
-            new PrintDG().printDG("Ronde " + (huidigeMatchLijst.nummer + 1) + "\nDatum: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items);
+            new PrintDG().PrintRoundRobinOfMatchLijst("Ronde " + Ronde.Text + "\nDatum: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items);
         }
 
         private void Match_Toevoegen(object sender, RoutedEventArgs e)
@@ -151,8 +154,7 @@ namespace De_7_Pionnen
                     id = versus.Id + 1;
             }
             geselecteerdeVersus.Id = id;
-            huidigeMatchLijst.versuses.Add(geselecteerdeVersus);
-            new VersusAanpassen(geselecteerdeVersus, true).ShowDialog();
+            new VersusAanpassen(geselecteerdeVersus, ref huidigeMatchLijst.versuses, true).ShowDialog();
 
             VulDataGrid();
         }
@@ -228,7 +230,7 @@ namespace De_7_Pionnen
                 WitPersoon.Gewonnen += ScoreWit == 1 ? 1 : 0;
                 WitPersoon.Verloren += ScoreWit == 0 ? 1 : 0;
                 WitPersoon.Gelijkspel += ScoreWit == 0.5 ? 1 : 0;
-                WitPersoon.Score += ScoreWit == 1 ? 1 : ScoreWit == 0 ? -1 : 0;
+                WitPersoon.Score += ScoreWit == 1 ? 1 : ScoreWit == 0 ? 0 : 0.5;
                 if (WitPersoon.vorigeTegenstanders.Count > VorigeTegenstanderCount)
                 {
                     WitPersoon.vorigeTegenstanders.RemoveAt(VorigeTegenstanderCount - 1);
@@ -239,7 +241,7 @@ namespace De_7_Pionnen
                 ZwartPersoon.Gewonnen += ScoreZwart == 1 ? 1 : 0;
                 ZwartPersoon.Verloren += ScoreZwart == 0 ? 1 : 0;
                 ZwartPersoon.Gelijkspel += ScoreZwart == 0.5 ? 1 : 0;
-                ZwartPersoon.Score += ScoreZwart == 1 ? 1 : ScoreZwart == 0 ? -1 : 0;
+                ZwartPersoon.Score += ScoreZwart == 1 ? 1 : ScoreZwart == 0 ? 0 : 0.5;
 
                 if (ZwartPersoon.vorigeTegenstanders.Count > VorigeTegenstanderCount)
                 {
