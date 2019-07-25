@@ -11,7 +11,7 @@
     <Grid>
         <Button Content="Persoon toevoegen" HorizontalAlignment="Left" Margin="10,0,0,47" VerticalAlignment="Bottom" Width="373" Height="41" FontSize="18" FontWeight="Bold" Click="Persoon_Toevoegen"/>
         <Button Content="Persoon verwijderen" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="373" Height="32" FontSize="18" FontWeight="Bold" Click="Persoon_Verwijderen"/>
-        <Button x:Name="Matchmaking" Content="Matchmaking" HorizontalAlignment="Left" Margin="581,0,0,10" VerticalAlignment="Bottom" Width="201" Height="78" FontSize="18" FontWeight="Bold" Click="Matchmaking_Click"/>
+        <Button x:Name="Matchmaking" Content="Matchmaking" HorizontalAlignment="Left" Margin="581,0,0,47" VerticalAlignment="Bottom" Width="201" Height="41" FontSize="18" FontWeight="Bold" Click="Matchmaking_Click"/>
         <DataGrid x:Name="PersonenTabel" HorizontalAlignment="Stretch" Margin="10,23,10,100" VerticalAlignment="Stretch" SelectionUnit="Cell" PreviewKeyDown="Delete_Click"/>
         <Button x:Name="DoubleRoundRobin" Content="Double Round Robin" HorizontalAlignment="Left" Margin="388,0,0,47" VerticalAlignment="Bottom" Width="188" Height="41" FontSize="18" FontWeight="Bold" Click="DubbelRoundRobin_Click"/>
         <Menu HorizontalAlignment="Left" Height="18" VerticalAlignment="Top" Width="56">
@@ -23,5 +23,6 @@
             </MenuItem>
         </Menu>
         <Button x:Name="RoundRobin" Content="Round Robin" HorizontalAlignment="Left" Margin="388,0,0,10" VerticalAlignment="Bottom" Width="188" Height="32" FontSize="18" FontWeight="Bold" Click="RoundRobin_Click"/>
+        <Button x:Name="Print" Content="Print" HorizontalAlignment="Left" Margin="581,0,0,10" VerticalAlignment="Bottom" Width="201" Height="32" FontSize="18" FontWeight="Bold" Click="Print_Click"/>
     </Grid>
 </Window>

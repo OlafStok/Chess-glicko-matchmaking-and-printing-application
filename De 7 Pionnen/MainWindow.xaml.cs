@@ -35,7 +35,7 @@ namespace De_7_Pionnen
 
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Id", Binding = new Binding("Id"), Visibility = Visibility.Hidden });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "#", Binding = new Binding("Positie"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
-            PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "+/-", Binding = new Binding("Stijging"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
+            PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "+/-", Binding = new Binding("Stijging") { StringFormat = "+#;-#;0" }, IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Naam", Binding = new Binding("Naam"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Rating", Binding = new Binding("glicko.Rating") { StringFormat = "##########0.#" }, IsReadOnly = true, FontSize = 20, HeaderStyle = style });
             PersonenTabel.Columns.Add(new DataGridTextColumn() { Header = "Gespeeld", Binding = new Binding("Gespeeld"), IsReadOnly = true, FontSize = 20, HeaderStyle = style });
@@ -174,6 +174,32 @@ namespace De_7_Pionnen
             {
                 Persistentie.Opslaan(new OpgeslagenBestand() {personen = DataSources.Instance.personen, matchlijsten = DataSources.Instance.matchLijsten }, BestandsPad + BestandsNaam);
             }
+        }
+
+        private void Print_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDG print = new PrintDG();
+            List<string> headers = new List<string>() {"#", "+/-", "Naam", "Rating", "Gespeeld", "Gewonnen", "Verloren", "Gelijk", "Score" };
+
+            List<List<string>> personen = new List<List<string>>();
+
+            foreach (Persoon p in DataSources.Instance.personen)
+            {
+                if (p.Id > -1) { 
+                    List<string> persoon = new List<string>();
+                    persoon.Add(p.Positie.ToString());
+                    persoon.Add(p.Stijging.ToString());
+                    persoon.Add(p.Naam);
+                    persoon.Add(p.glicko.Rating.ToString("#########0.#"));
+                    persoon.Add(p.Gespeeld.ToString());
+                    persoon.Add(p.Gewonnen.ToString());
+                    persoon.Add(p.Verloren.ToString());
+                    persoon.Add(p.Gelijkspel.ToString());
+                    persoon.Add(p.Score.ToString());
+                    personen.Add(persoon);
+                }
+            }
+            print.PrintPersonenLijst("Stand ladder na ronde __", headers, personen);
         }
 
         private void OpslaanAls_Click(object sender, RoutedEventArgs e)

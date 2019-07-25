@@ -111,8 +111,9 @@ namespace De_7_Pionnen
                     foreach (Versus v in huidigeMatchLijst.versuses)
                     {
                         if (string.IsNullOrEmpty(v.Uitslag))
-                            huidigeMatchLijst.versuses.Remove(v);
+                            v.Uitslag = "VERWIJDER";
                     }
+                    huidigeMatchLijst.versuses.RemoveAll(v => v.Uitslag.Equals("VERWIJDER"));
                     UpdateResultaten();
                 }
                 else if (result == MessageBoxResult.No)
@@ -137,11 +138,15 @@ namespace De_7_Pionnen
         private void Print_Click(object sender, RoutedEventArgs e)
         {
             List<List<string>> items = new List<List<string>>();
+            List<string> afwezigen = new List<string>();
             foreach (Versus versus in huidigeMatchLijst.versuses)
             {
                 items.Add(new List<string> { versus.Wit == null ? "" : versus.Wit.Naam, versus.Zwart == null ? "" : versus.Zwart.Naam, versus.Uitslag == null ? "-" : versus.Uitslag });
             }
-            new PrintDG().PrintRoundRobinOfMatchLijst("Ronde " + Ronde.Text + "\nDatum: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items);
+            foreach (Persoon p in DataSources.Instance.personen)
+                if (!p.Aanwezig)
+                    afwezigen.Add(p.Naam);
+            new PrintDG().PrintRoundRobinOfMatchLijst("Ronde " + Ronde.Text + "\nDatum: " + DateTime.Now.ToString("dd/MM/yyyy"), new List<string> { "Wit", "Zwart", "Uitslag" }, items, afwezigen);
         }
 
         private void Match_Toevoegen(object sender, RoutedEventArgs e)
